@@ -12,10 +12,10 @@ export default function useVisualMode(initial) {
   // replace = false <-- default value, if replace isn't specified
   function transition(mode, replace = false) {
     if (replace) {
-      const updatedHistory = [...history];
+      // const updatedHistory = [...history];
 
       // updatedHistory = ['mode', 'mode', 'modeToReplace']
-      // setting your history to: [['mode', mode'], 'newMode'] ...updatedHistory
+      // setting your history to: [['mode', mode', 'modeToReplace'], 'newMode'] ...updatedHistory
       // result after slice: ['mode', 'newMode']
       
       // Alternatively: prev callback:

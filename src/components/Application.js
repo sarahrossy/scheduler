@@ -5,8 +5,6 @@ import DayList from "components/DayList";
 import "components/Application.scss";
 import Appointment from "components/Appointment";
 
-import useVisualMode from '../hooks/useVisualMode';
-
 import { getAppointmentsForDay, getInterview } from "components/helpers/selectors";
 
 // ------ STEPS TO CREATE A COMPONENT:
@@ -16,9 +14,6 @@ import { getAppointmentsForDay, getInterview } from "components/helpers/selector
 // Create & Import a CSS / SCSS file holding the style of our component
 // Write stories for Storybook to render our component in isolation
 // Refactor the hardcoded content to use props & state
-
-const EMPTY = "EMPTY";
-const SHOW = "SHOW";
 
 export default function Application(props) {
 
@@ -32,7 +27,8 @@ export default function Application(props) {
   
   const setDay = (day) => setState({ ...state, day });
 
-  // promise.all takes an array of promises, and returns the responses in an all object
+  //------- fetch API data
+      // promise.all takes an array of promises, and returns the responses in an all object
   useEffect(() => {
     Promise.all([
       axios.get('/api/days'),
