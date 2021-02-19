@@ -46,3 +46,17 @@ export function getInterview(state, interview) {
 //     "avatar": "https://i.imgur.com/LpaY82x.png"
 //   }
 // }
+
+export function getInterviewersForDay(state, day) {
+
+  const interviewersForDay = [];
+
+  state.days.forEach((d) => {
+    if (d.name === day) {
+      d.interviewers.forEach((int) => {
+       interviewersForDay.push(state.interviewers[int])  
+      })
+    }
+  })
+  return interviewersForDay;
+};

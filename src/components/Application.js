@@ -5,7 +5,7 @@ import DayList from "components/DayList";
 import "components/Application.scss";
 import Appointment from "components/Appointment";
 
-import { getAppointmentsForDay, getInterview } from "components/helpers/selectors";
+import { getAppointmentsForDay, getInterviewersForDay, getInterview } from "components/helpers/selectors";
 
 // ------ STEPS TO CREATE A COMPONENT:
 // Create a file with our component name
@@ -46,6 +46,8 @@ export default function Application(props) {
 
   const appointments = getAppointmentsForDay(state, state.day);
 
+  const interviewers = getInterviewersForDay(state, state.day);
+
   // returns an array of appointments
   const schedule = appointments.map((appointment) => {
     const interview = getInterview(state, appointment.interview);
@@ -56,6 +58,7 @@ export default function Application(props) {
         id={appointment.id}
         time={appointment.time}
         interview={interview}
+        interviewers={interviewers}
       />
     );
   });
@@ -84,7 +87,8 @@ export default function Application(props) {
       </section>
       <section className="schedule">
         {schedule}
-        <Appointment key="last" time="5pm" />
+        <Appointment key="last" time="5pm" 
+        interviewers={interviewers}/>
       </section>
     </main>
   );
