@@ -15,6 +15,9 @@ import { getAppointmentsForDay, getInterviewersForDay, getInterview } from "comp
 // Write stories for Storybook to render our component in isolation
 // Refactor the hardcoded content to use props & state
 
+// database reset curl command:
+// curl http://localhost:8001/api/debug/reset
+
 export default function Application(props) {
 
   // combined all states into a single useState object
@@ -64,15 +67,37 @@ export default function Application(props) {
       appointments
     })
 
-    console.log("appointment", appointment);
+    //console.log("appointment", appointment);
     
     //axios wants an object -> wrap it in {}
     return axios.put(`/api/appointments/${appointment.id}`, {interview})
-    // promises are chains!
-    // .then(res => {
-    //   // transition(SHOW);
-    //   console.log("res!", res)})
+    // promises are chains! chained to child element index.js
     .catch(err => console.log(err))  
+  }
+
+  function cancelInterview(id) {
+   //console.log("cancelInterview()")
+       const appointment = {
+      ...state.appointments[id],
+      interview: null
+    };
+
+    const appointments = {
+      ...state.appointments,
+      [id]: appointment
+    };
+
+  
+
+    const url = `/api/appointments/${id}`;
+    return axios.delete(url, appointment)
+    .then(() => {
+      setState({
+        ...state,
+        appointments
+      })
+    })
+    // .catch(err => console.log(err))
   }
 
   // returns an array of appointments
@@ -87,6 +112,7 @@ export default function Application(props) {
         interview={interview}
         interviewers={interviewers}
         bookInterview={bookInterview}
+        cancelInterview={cancelInterview}
       />
     );
   });
