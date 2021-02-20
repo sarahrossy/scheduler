@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React from "react";
 import "./styles.scss";
 import useVisualMode from "../../hooks/useVisualMode";
 
@@ -7,7 +7,7 @@ import Show from "./Show";
 import Empty from "./Empty";
 import Confirm from "./Confirm";
 import Status from "./Status";
-import Error from "./Error";
+//import Error from "./Error";
 import Form from "./Form";
 
 
@@ -15,9 +15,13 @@ const EMPTY = "EMPTY";
 const SHOW = "SHOW";
 const CONFIRM = "CONFIRM";
 const STATUS = "STATUS";
-const ERROR = "ERROR";
+//const ERROR = "ERROR";
 const CREATE = "CREATE";
 const DELETING = "DELETING";
+const EDIT = "EDIT";
+
+const ERROR_SAVE = "ERROR_SAVE";
+const ERROR_DELETE = "ERROR_DELETE";
 
 // PROPS:
 // key={appointment.id}
@@ -41,19 +45,17 @@ export default function Appointment(props) {
     const appointmentId = props.id;
     transition(STATUS);
     props.bookInterview(appointmentId, interview)
-      .then(() => transition(SHOW));
+      .then(() => transition(SHOW))
+      .catch((error) => transition(ERROR_SAVE, true));
   }
-
-  // function edit() {
-    
-  // }
 
   function cancelBooking() {
 
-    transition(DELETING);
+    transition(DELETING, true);
     props.cancelInterview(props.id)
-    // promise waits until function is done rendering, then executes because of the () => {}
+      // promise waits until function is done rendering, then executes because of the () => {}
       .then(() => transition(EMPTY))
+      .catch((error) => transition(ERROR_DELETE, true));
   }
 
   return (
@@ -66,9 +68,11 @@ export default function Appointment(props) {
       }} />}
       {mode === SHOW && (
         <Show
+          id={props.id}
           student={props.interview.student}
           interviewer={props.interview.interviewer}
-          onDelete={cancelBooking}
+          onDelete={() => transition(CONFIRM)}
+          onEdit={() => transition(EDIT)}
         />
       )}
       {mode === CREATE && (
@@ -95,6 +99,15 @@ export default function Appointment(props) {
       {mode === DELETING && (
         <Status
           message="Deleting..."
+        />
+      )}
+      {mode === EDIT && (
+        <Form
+          name={props.interview.student}
+          interviewer={props.interview.interviewer.id}
+          interviewers={props.interviewers}
+          onCancel={() => back()}
+          onSave={save}
         />
       )}
     </article>

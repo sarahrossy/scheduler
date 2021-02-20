@@ -7,8 +7,6 @@ export default function useVisualMode(initial) {
   const [mode, setMode] = useState(initial);
   const [history, setHistory] = useState([initial]);
 
-  // when do we use the spread operator, and when do we manipulate the state directly?
-
   // replace = false <-- default value, if replace isn't specified
   function transition(mode, replace = false) {
     if (replace) {

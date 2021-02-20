@@ -17,6 +17,16 @@ const days = [
     name: "Wednesday",
     spots: 0,
   },
+  {
+    id: 3,
+    name: "Thursday",
+    spots: 0,
+  },
+  {
+    id: 3,
+    name: "Friday",
+    spots: 0,
+  },
 ];
 
 export default function DayList(props) {
