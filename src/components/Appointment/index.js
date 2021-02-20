@@ -1,13 +1,13 @@
 import React from "react";
 import "./styles.scss";
 import useVisualMode from "../../hooks/useVisualMode";
+import useApplicationData from "../../hooks/useApplicationData";
 
 import Header from "./Header";
 import Show from "./Show";
 import Empty from "./Empty";
 import Confirm from "./Confirm";
 import Status from "./Status";
-//import Error from "./Error";
 import Form from "./Form";
 
 
@@ -15,7 +15,6 @@ const EMPTY = "EMPTY";
 const SHOW = "SHOW";
 const CONFIRM = "CONFIRM";
 const STATUS = "STATUS";
-//const ERROR = "ERROR";
 const CREATE = "CREATE";
 const DELETING = "DELETING";
 const EDIT = "EDIT";

@@ -1,17 +1,20 @@
 import { useState, useEffect } from 'react';
 import axios from "axios";
+import { getAppointmentsForDay } from '../../src/components/helpers/selectors';
 
 export default function useApplicationData() {
 
   // grouped all of the state/effect/hook things that actually execute logic --> action side of Application.js
 
   const [state, setState] = useState({
+    // initial state, tiny databank that keeps track until we refresh
     day: "Monday",
     days: [],
     appointments: {},
     interviewers: {}
   });
 
+  // spots = 5 - appointments
   const setDay = (day) => setState({ ...state, day });
 
   useEffect(() => {
@@ -29,6 +32,20 @@ export default function useApplicationData() {
     });
   }, []) // DO NOT FORGET DEPENDENCY ARRAY!!!
 
+  useEffect(() => {
+    setState((prevState) => {
+      const newDays = prevState.days.map((day) => {
+        return {...day, spots: getAppointmentsForDay(prevState, day.name)
+          .filter((appointment) => {
+            return appointment.interview == null
+          }).length
+        }
+      })
+      return {...prevState, days: newDays};
+    })
+    
+  }, [state.appointments])
+
   function bookInterview(id, interview) {
     const appointment = {
       ...state.appointments[id],
@@ -40,18 +57,16 @@ export default function useApplicationData() {
       [id]: appointment
     };
 
+    // how we change our state
     setState({
       ...state,
       appointments
     })
 
-    //console.log("appointment", appointment);
-
-    //axios wants an object -> wrap it in {}
     return axios.put(`/api/appointments/${appointment.id}`, { interview })
       // promises are chains! chained to child element index.js
       .catch(err => console.log(err))
-  }
+  };
 
   function cancelInterview(id) {
     //console.log("cancelInterview()")
@@ -73,16 +88,7 @@ export default function useApplicationData() {
           appointments
         })
       })
-    // .catch(err => console.log(err))
-  }
-
-  // const [day, setDay] = useState();
-  // const [interview, bookInterview] = useState();
-  // const [interview, cancelInterview] = useState();
-
-
-  
-  //functions
+  };
 
    return { state, setDay, bookInterview, cancelInterview }
 };
