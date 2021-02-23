@@ -2,6 +2,11 @@ import React from "react";
 import InterviewerListItem from "components/InterviewerListItem";
 import "components/InterviewerList.scss";
 import "components/Application.scss"
+import PropTypes from 'prop-types';
+
+InterviewerList.propTypes = {
+  interviewers: PropTypes.array.isRequired
+};
 
 // InterviewerList takes in three props:
 

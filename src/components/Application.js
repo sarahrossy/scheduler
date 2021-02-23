@@ -18,6 +18,9 @@ import { getAppointmentsForDay, getInterviewersForDay, getInterview } from "comp
 // database reset curl command:
 // curl http://localhost:8001/api/debug/reset
 
+// testing with coverage command:
+// npm test -- --coverage --watchAll=false
+
 export default function Application(props) {
 
   // destructured custom hook - similar to a class

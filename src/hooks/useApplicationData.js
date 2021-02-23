@@ -32,6 +32,7 @@ export default function useApplicationData() {
     });
   }, []) // DO NOT FORGET DEPENDENCY ARRAY!!!
 
+  // updating spots remaining
   useEffect(() => {
     setState((prevState) => {
       const newDays = prevState.days.map((day) => {
