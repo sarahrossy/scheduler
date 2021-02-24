@@ -18,6 +18,7 @@ const STATUS = "STATUS";
 const CREATE = "CREATE";
 const DELETING = "DELETING";
 const EDIT = "EDIT";
+//const ERROR = "ERROR";
 
 const ERROR_SAVE = "ERROR_SAVE";
 const ERROR_DELETE = "ERROR_DELETE";
@@ -58,7 +59,7 @@ export default function Appointment(props) {
   }
 
   return (
-    <article className="appointment">
+    <article className="appointment" data-testid="appointment">
       <Header time={props.time}></Header>
       {/* short circuit pattern */}
       {mode === EMPTY && <Empty onAdd={() => {
@@ -109,6 +110,12 @@ export default function Appointment(props) {
           onSave={save}
         />
       )}
+      {/* {mode === ERROR && (
+        <Error
+          message="Could not delete appointment."
+          onClose={back}
+          />
+      )} */}
     </article>
   )
 }
