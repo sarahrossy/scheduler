@@ -9,6 +9,7 @@ import Empty from "./Empty";
 import Confirm from "./Confirm";
 import Status from "./Status";
 import Form from "./Form";
+import Error from "./Error";
 
 
 const EMPTY = "EMPTY";
@@ -18,7 +19,6 @@ const STATUS = "STATUS";
 const CREATE = "CREATE";
 const DELETING = "DELETING";
 const EDIT = "EDIT";
-//const ERROR = "ERROR";
 
 const ERROR_SAVE = "ERROR_SAVE";
 const ERROR_DELETE = "ERROR_DELETE";
@@ -45,8 +45,12 @@ export default function Appointment(props) {
     const appointmentId = props.id;
     transition(STATUS);
     props.bookInterview(appointmentId, interview)
-      .then(() => transition(SHOW))
-      .catch((error) => transition(ERROR_SAVE, true));
+      .then(() => {
+        console.log("Inside then!")
+        transition(SHOW)})
+      .catch((error) => {
+        console.log("Inside catch!")
+        transition(ERROR_SAVE, true)});
   }
 
   function cancelBooking() {
@@ -110,12 +114,18 @@ export default function Appointment(props) {
           onSave={save}
         />
       )}
-      {/* {mode === ERROR && (
+      {mode === ERROR_SAVE && (
+        <Error
+          message="Could not save appointment."
+          onClose={back}
+        />
+      )}
+      {mode === ERROR_DELETE && (
         <Error
           message="Could not delete appointment."
           onClose={back}
-          />
-      )} */}
+        />
+      )}
     </article>
   )
 }

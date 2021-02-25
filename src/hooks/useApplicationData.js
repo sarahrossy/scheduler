@@ -66,7 +66,7 @@ export default function useApplicationData() {
 
     return axios.put(`/api/appointments/${appointment.id}`, { interview })
       // promises are chains! chained to child element index.js
-      .catch(err => console.log(err))
+      //.catch(err => console.log(err))
   };
 
   function cancelInterview(id) {
