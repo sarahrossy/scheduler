@@ -3,14 +3,13 @@ import Button from "../Button";
 import InterviewerList from "../InterviewerList";
 
 // As part of our Edit story, the Form component should take the following props:
-
 // name:String
 // interviewers:Array
 // interviewer:Number
 // onSave:Function
 // onCancel:Function
-// As part of our Create story, the Form component should take the following props:
 
+// As part of our Create story, the Form component should take the following props:
 // interviewers:Array
 // onSave:Function
 // onCancel:Function
