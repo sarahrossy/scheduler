@@ -2,8 +2,14 @@
 A single-page application that allows users to book, edit, and cancel interviews, built with ReactJS, Webpack, Jest, Storybook, and Cypress.
 
 ## Features
+
+#### Booking an interview
 ![](https://github.com/sarahrossy/scheduler/blob/master/public/gifs/booking_an_interview.gif)
+
+#### Editing an existing interview
 ![](https://github.com/sarahrossy/scheduler/blob/master/public/gifs/editing_an_interview.gif)
+
+#### Deleting existing interviews
 ![](https://github.com/sarahrossy/scheduler/blob/master/public/gifs/deleting_interviews.gif)
 
 ## Setup
