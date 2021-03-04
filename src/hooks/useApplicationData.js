@@ -30,22 +30,7 @@ export default function useApplicationData() {
         interviewers: all[2].data
       }))
     });
-  }, []) // DO NOT FORGET DEPENDENCY ARRAY!!!
-
-  // updating spots remaining
-  useEffect(() => {
-    setState((prevState) => {
-      const newDays = prevState.days.map((day) => {
-        return {...day, spots: getAppointmentsForDay(prevState, day.name)
-          .filter((appointment) => {
-            return appointment.interview == null
-          }).length
-        }
-      })
-      return {...prevState, days: newDays};
-    })
-    
-  }, [state.appointments])
+  }, [state.appointments]) // DO NOT FORGET DEPENDENCY ARRAY!!!
 
   function bookInterview(id, interview) {
     const appointment = {
