@@ -15,7 +15,7 @@ InterviewerList.propTypes = {
 // setInterviewer:function - a function that accepts an interviewer id
 
 export default function InterviewerList(props) {
-  console.log("interviewer", props.interviewers)
+  //console.log("interviewer", props.interviewers)
   const interviewers = props.interviewers.map((interviewer) =>{
   return (<InterviewerListItem
       key={interviewer.id}

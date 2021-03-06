@@ -182,7 +182,7 @@ describe("Application", () => {
     // 5. Click the "Confirm" button on the confirmation.
     fireEvent.click(queryByText(appointment, "Confirm"))
     // 6. Check that the element with the text "Deleting" is displayed.
-    console.log(prettyDOM(appointment))
+    //console.log(prettyDOM(appointment))
     expect(getByText(appointment, "Deleting...")).toBeInTheDocument();
 
     // 7. Wait until the element "error" is displayed.

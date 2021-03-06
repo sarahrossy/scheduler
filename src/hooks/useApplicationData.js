@@ -23,6 +23,7 @@ export default function useApplicationData() {
       axios.get('/api/appointments'),
       axios.get('/api/interviewers')
     ]).then((all) => {
+      
       setState(prev => ({
         ...prev,
         days: all[0].data,
@@ -30,7 +31,9 @@ export default function useApplicationData() {
         interviewers: all[2].data
       }))
     });
-  }, [state.appointments]) // DO NOT FORGET DEPENDENCY ARRAY!!!
+  }, []) // DO NOT FORGET DEPENDENCY ARRAY!!!
+
+
 
   function bookInterview(id, interview) {
     const appointment = {
@@ -43,15 +46,24 @@ export default function useApplicationData() {
       [id]: appointment
     };
 
-    // how we change our state
-    setState({
-      ...state,
-      appointments
-    })
-
+    
     return axios.put(`/api/appointments/${appointment.id}`, { interview })
-      // promises are chains! chained to child element index.js
-      //.catch(err => console.log(err))
+    .then(() => {
+      return new Promise(
+        (resolve, reject) => {
+          axios.get('/api/days')
+          .then((res) => {
+            setState({
+              ...state,
+              appointments,
+              days: res.data
+            })
+            resolve();
+          })
+        }
+      )
+    })
+  
   };
 
   function cancelInterview(id) {
@@ -69,10 +81,19 @@ export default function useApplicationData() {
     const url = `/api/appointments/${id}`;
     return axios.delete(url, appointment)
       .then(() => {
-        setState({
-          ...state,
-          appointments
-        })
+        return new Promise(
+          (resolve, reject) => {
+            axios.get('/api/days')
+            .then((res) => {
+              setState({
+                ...state,
+                appointments,
+                days: res.data
+              })
+              resolve();
+            })
+          }
+        )
       })
   };
 

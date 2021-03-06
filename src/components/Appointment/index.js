@@ -46,10 +46,10 @@ export default function Appointment(props) {
     transition(STATUS);
     props.bookInterview(appointmentId, interview)
       .then(() => {
-        console.log("Inside then!")
+        //console.log("Inside then!")
         transition(SHOW)})
       .catch((error) => {
-        console.log("Inside catch!")
+        //console.log("Inside catch!")
         transition(ERROR_SAVE, true)});
   }
 
@@ -68,7 +68,7 @@ export default function Appointment(props) {
       {/* short circuit pattern */}
       {mode === EMPTY && <Empty onAdd={() => {
         transition(CREATE);
-        console.log("Clicked onAdd");
+        //console.log("Clicked onAdd");
       }} />}
       {mode === SHOW && (
         <Show
